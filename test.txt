@@ -1,4 +1,0 @@
-This is a test text file to see if syncing with the Git repository works as expected.
-
-
-Tue Dec  2 09:58:04 CST 2014
