@@ -1,22 +1,18 @@
 library(dplyr)
 library(lubridate)
+library(sqldf)
 
-#Read in the dataset
-hpower <- read.csv("./household_power_consumption.txt", sep=";", na.string=c("?"))
+#Read in the relevant subset of the total dataset using sqldf
+mypower <- read.csv.sql("./household_power_consumption.txt",
+                        sql="select * from file where Date in ('1/2/2007', '2/2/2007')", header=TRUE, sep=";")
 
-# Convert Date and Time strings to an actual datetime, add as a column called datetime to hpower
-times <- strptime(paste(as.Date(hpower[, 1], format="%d/%m/%Y"), hpower[,2]), "%Y-%m-%d %H:%M:%S")
+# Convert Date and Time strings to an actual datetime, add as a column called datetime to mypower
+times <- strptime(paste(as.Date(mypower[, 1], format="%d/%m/%Y"), mypower[,2]), "%Y-%m-%d %H:%M:%S")
 dateTime <- data.frame(times)
-hpower["datetime"] <- dateTime[,1]
-
-#Subset hpower so that it only contains data for dates 2007-02-01 and 2007-02-02 inclusive, assign to mypower
-hpower[hpower$datetime >= strptime("2007-02-01", "%Y-%m-%d") & hpower$datetime < strptime("2007-02-03", "%Y-%m-%d"), ] -> mypower
+mypower["datetime"] <- dateTime[,1]
 
 #Remove any rows with NAs
 mypower <- mypower[complete.cases(mypower), ]
-
-#Write the final dataset to a file (remove this later)
-#write.table(mypower, file="./mypower.csv", quote=TRUE, sep=',', eol='\r\n', row.names=FALSE, col.names=TRUE)
 
 #Create the appropriate plots in png files
 #plot2
