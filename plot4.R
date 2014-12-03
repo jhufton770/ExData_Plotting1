@@ -22,7 +22,7 @@ mypower <- mypower[complete.cases(mypower), ]
 #plot4
 png(file="./plot4.png", width = 480, height = 480, units = "px")
 par(mfrow=c(2,2))
-with(mypower, plot(datetime, Global_active_power, type="l", ylab="Global Active Power (kilowatts)", xlab=""))
+with(mypower, plot(datetime, Global_active_power, type="l", ylab="Global Active Power", xlab=""))
 with(mypower, plot(datetime, Voltage, type="l"))
 with(mypower, plot(datetime, Sub_metering_1, type="l", ylab="Energy sub metering", xlab=""))
 with(mypower, points(datetime, Sub_metering_2, type="l", col="red"))
