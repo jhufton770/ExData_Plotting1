@@ -2,7 +2,7 @@ library(dplyr)
 library(lubridate)
 
 #Read in the dataset
-hpower <- read.csv("./household_power_consumption.csv", na.string=c("?"))
+hpower <- read.csv("./household_power_consumption.txt", sep=";", na.string=c("?"))
 
 # Convert Date and Time strings to an actual datetime, add as a column called datetime to hpower
 times <- strptime(paste(as.Date(hpower[, 1], format="%d/%m/%Y"), hpower[,2]), "%Y-%m-%d %H:%M:%S")
